@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>523</width>
-    <height>417</height>
+    <width>454</width>
+    <height>288</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -36,7 +36,7 @@
               </property>
               <layout class="QGridLayout" name="gridLayout_3">
                <item row="0" column="0">
-                <widget class="SerialPortComboBox" name="comboBox"/>
+                <widget class="SerialDeviceView" name="widgetSerialDevice" native="true"/>
                </item>
               </layout>
              </widget>
@@ -105,7 +105,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>523</width>
+     <width>454</width>
      <height>23</height>
     </rect>
    </property>
@@ -114,9 +114,10 @@
  </widget>
  <customwidgets>
   <customwidget>
-   <class>SerialPortComboBox</class>
-   <extends>QComboBox</extends>
-   <header>gui/SerialPortComboBox.hpp</header>
+   <class>SerialDeviceView</class>
+   <extends>QWidget</extends>
+   <header>gui/SerialDeviceView.hpp</header>
+   <container>1</container>
   </customwidget>
  </customwidgets>
  <resources/>

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>SerialDeviceView</class>
+ <widget class="QWidget" name="SerialDeviceView">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>345</width>
+    <height>190</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <layout class="QGridLayout" name="gridLayout">
+   <item row="0" column="0">
+    <widget class="QLabel" name="label">
+     <property name="text">
+      <string>Port:</string>
+     </property>
+    </widget>
+   </item>
+   <item row="0" column="1">
+    <widget class="SerialPortComboBox" name="comboBoxPort"/>
+   </item>
+   <item row="1" column="0">
+    <widget class="QLabel" name="label_2">
+     <property name="text">
+      <string>Info:</string>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="1">
+    <widget class="QTextBrowser" name="textBrowserInfo"/>
+   </item>
+  </layout>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>SerialPortComboBox</class>
+   <extends>QComboBox</extends>
+   <header>gui/SerialPortComboBox.hpp</header>
+  </customwidget>
+ </customwidgets>
+ <resources/>
+ <connections>
+  <connection>
+   <sender>comboBoxPort</sender>
+   <signal>currentTextChanged(QString)</signal>
+   <receiver>SerialDeviceView</receiver>
+   <slot>updateDeviceInfo(QString)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>188</x>
+     <y>19</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>172</x>
+     <y>94</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+ <slots>
+  <slot>updateDeviceInfo(QString)</slot>
+ </slots>
+</ui>
