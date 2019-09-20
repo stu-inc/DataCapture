@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>RecordView</class>
+ <widget class="QWidget" name="RecordView">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>431</width>
+    <height>289</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <layout class="QGridLayout" name="gridLayout">
+   <item row="0" column="0">
+    <layout class="QHBoxLayout" name="horizontalLayout_2">
+     <item>
+      <layout class="QVBoxLayout" name="verticalLayout_2">
+       <item>
+        <widget class="QGroupBox" name="groupBoxDevice">
+         <property name="title">
+          <string>Device</string>
+         </property>
+         <layout class="QGridLayout" name="gridLayout_3">
+          <item row="0" column="0">
+           <widget class="SerialDeviceView" name="widgetSerialDevice" native="true"/>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
+        <widget class="QGroupBox" name="groupBoxFile">
+         <property name="title">
+          <string>File</string>
+         </property>
+         <layout class="QGridLayout" name="gridLayout_4">
+          <item row="0" column="0">
+           <widget class="RecordFileView" name="widgetRecordFile" native="true"/>
+          </item>
+         </layout>
+        </widget>
+       </item>
+      </layout>
+     </item>
+    </layout>
+   </item>
+   <item row="0" column="1">
+    <layout class="QVBoxLayout" name="verticalLayout_3">
+     <item>
+      <widget class="QPushButton" name="pushButtonStartRecord">
+       <property name="text">
+        <string>Start</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="pushButtonStopRecord">
+       <property name="text">
+        <string>Stop</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <spacer name="verticalSpacer">
+       <property name="orientation">
+        <enum>Qt::Vertical</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>20</width>
+         <height>40</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+    </layout>
+   </item>
+  </layout>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>SerialDeviceView</class>
+   <extends>QWidget</extends>
+   <header>gui/SerialDeviceView.hpp</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>RecordFileView</class>
+   <extends>QWidget</extends>
+   <header>gui/RecordFileView.hpp</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
+ <resources/>
+ <connections>
+  <connection>
+   <sender>pushButtonStartRecord</sender>
+   <signal>clicked()</signal>
+   <receiver>RecordView</receiver>
+   <slot>startRecord()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>320</x>
+     <y>20</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>215</x>
+     <y>144</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pushButtonStopRecord</sender>
+   <signal>clicked()</signal>
+   <receiver>RecordView</receiver>
+   <slot>stopRecord()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>320</x>
+     <y>50</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>215</x>
+     <y>144</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+ <slots>
+  <slot>startRecord()</slot>
+  <slot>stopRecord()</slot>
+ </slots>
+</ui>

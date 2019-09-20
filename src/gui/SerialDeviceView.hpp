@@ -12,6 +12,8 @@ public:
   explicit SerialDeviceView(QWidget *parent = nullptr);
   ~SerialDeviceView();
 
+  QString getCurrentDevice() const;
+
 protected slots:
   void updateDeviceInfo(const QString &name);
 

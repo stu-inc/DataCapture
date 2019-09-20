@@ -9,6 +9,10 @@ SerialDeviceView::SerialDeviceView(QWidget *parent)
 
 SerialDeviceView::~SerialDeviceView() { delete ui; }
 
+QString SerialDeviceView::getCurrentDevice() const {
+  return ui->comboBoxPort->currentText();
+}
+
 void SerialDeviceView::updateDeviceInfo(const QString &name) {
 
   for (auto &port : QSerialPortInfo::availablePorts()) {
