@@ -58,6 +58,10 @@ void SerialRecorder::readData() {
   }
 }
 
+void SerialRecorder::showError(QSerialPort::SerialPortError error) {
+  qWarning() << error;
+}
+
 void SerialRecorder::run() {
 
   mFile = QSharedPointer<QFile>::create();
@@ -76,6 +80,8 @@ void SerialRecorder::run() {
     return;
   }
 
+  mDataStream->setDevice(mFile.data());
+
   {
     QReadLocker locker(&mLock);
     mSerialPort->setPortName(mPortName);
@@ -85,16 +91,18 @@ void SerialRecorder::run() {
     mSerialPort->setStopBits(mStopBits);
   }
 
-  if (!mSerialPort->open(QIODevice::ReadWrite)) {
-    QReadLocker locker(&mLock);
-    qWarning() << "Can not open serial port: " + mPortName;
-    return;
-  }
-
-  mDataStream->setDevice(mFile.data());
+  connect(mSerialPort.data(), &QSerialPort::errorOccurred, this,
+          &SerialRecorder::showError);
 
   connect(mSerialPort.data(), &QSerialPort::readyRead, this,
           &SerialRecorder::readData);
+
+  if (!mSerialPort->open(QIODevice::ReadWrite)) {
+    QReadLocker locker(&mLock);
+    qWarning() << "Can not open serial port: " + mPortName
+               << mSerialPort->error();
+    return;
+  }
 
   mTimer->start();
 

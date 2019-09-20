@@ -29,6 +29,7 @@ public:
 
 protected slots:
   void readData();
+  void showError(QSerialPort::SerialPortError error);
 
 private:
   mutable QReadWriteLock mLock;
