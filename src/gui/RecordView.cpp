@@ -21,6 +21,11 @@ void RecordView::startRecord() {
   mRecorder->setPortName(ui->widgetSerialDevice->getCurrentDevice());
   mRecorder->setFileName(ui->widgetRecordFile->getFileName());
 
+  mRecorder->setBaundRate(ui->widgetSerialDevice->getBaundRate());
+  mRecorder->setDataBits(ui->widgetSerialDevice->getDataBits());
+  mRecorder->setParity(ui->widgetSerialDevice->getParity());
+  mRecorder->setStopBits(ui->widgetSerialDevice->getStopBits());
+
   mRecorder->start();
 }
 

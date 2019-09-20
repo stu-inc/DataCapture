@@ -1,6 +1,7 @@
 #pragma once
 
 #include <QWidget>
+#include <QtSerialPort>
 
 namespace Ui {
 class SerialDeviceView;
@@ -13,6 +14,10 @@ public:
   ~SerialDeviceView();
 
   QString getCurrentDevice() const;
+  QSerialPort::BaudRate getBaundRate() const;
+  QSerialPort::DataBits getDataBits() const;
+  QSerialPort::Parity getParity() const;
+  QSerialPort::StopBits getStopBits() const;
 
 protected slots:
   void updateDeviceInfo(const QString &name);

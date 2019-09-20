@@ -3,7 +3,6 @@
 #include <QDebug>
 #include <QElapsedTimer>
 #include <QFile>
-#include <QSerialPort>
 
 SerialRecorder::SerialRecorder(QObject *parent) : QThread(parent) {}
 
@@ -29,6 +28,26 @@ void SerialRecorder::setPortName(const QString &portName) {
 void SerialRecorder::setFileName(const QString &fileName) {
   QWriteLocker locker(&mLock);
   mFileName = fileName;
+}
+
+void SerialRecorder::setBaundRate(QSerialPort::BaudRate baudRate) {
+  QWriteLocker locker(&mLock);
+  mBaundRate = baudRate;
+}
+
+void SerialRecorder::setDataBits(QSerialPort::DataBits dataBits) {
+  QWriteLocker locker(&mLock);
+  mDataBits = dataBits;
+}
+
+void SerialRecorder::setParity(QSerialPort::Parity parity) {
+  QWriteLocker locker(&mLock);
+  mParity = parity;
+}
+
+void SerialRecorder::setStopBits(QSerialPort::StopBits stopBits) {
+  QWriteLocker locker(&mLock);
+  mStopBits = stopBits;
 }
 
 void SerialRecorder::readData() {
@@ -60,9 +79,13 @@ void SerialRecorder::run() {
   {
     QReadLocker locker(&mLock);
     mSerialPort->setPortName(mPortName);
+    mSerialPort->setBaudRate(mBaundRate);
+    mSerialPort->setDataBits(mDataBits);
+    mSerialPort->setParity(mParity);
+    mSerialPort->setStopBits(mStopBits);
   }
 
-  if (!mSerialPort->open(QIODevice::ReadOnly)) {
+  if (!mSerialPort->open(QIODevice::ReadWrite)) {
     QReadLocker locker(&mLock);
     qWarning() << "Can not open serial port: " + mPortName;
     return;
