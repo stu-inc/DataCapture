@@ -5,6 +5,7 @@
 SerialDeviceView::SerialDeviceView(QWidget *parent)
     : QWidget(parent), ui(new Ui::SerialDeviceView) {
   ui->setupUi(this);
+  ui->comboBoxPort->setCurrentIndex(-1);
 }
 
 SerialDeviceView::~SerialDeviceView() { delete ui; }

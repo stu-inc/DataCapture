@@ -85,4 +85,5 @@ void SerialRecorder::run() {
   mSerialPort.clear();
   mDataStream.clear();
   mFile.clear();
+  mTimer.clear();
 }
