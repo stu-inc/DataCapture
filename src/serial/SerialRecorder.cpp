@@ -11,7 +11,7 @@ SerialRecorder::~SerialRecorder() { stop(); }
 void SerialRecorder::start() { QThread::start(); }
 
 void SerialRecorder::stop() {
-  requestInterruption();
+  quit();
   wait();
 }
 
