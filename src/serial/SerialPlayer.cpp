@@ -77,7 +77,7 @@ void SerialPlayer::run() {
         mSerialPort->write(bytes);
         break;
       }
-      sleep(10);
+      msleep(10);
     }
 
     if (mDataStream->atEnd())
