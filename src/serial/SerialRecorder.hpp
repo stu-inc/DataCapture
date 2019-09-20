@@ -5,6 +5,8 @@
 #include <QThread>
 
 class QSerialPort;
+class QFile;
+class QElapsedTimer;
 
 class SerialRecorder : public QThread {
 public:
@@ -17,7 +19,8 @@ public:
 
   virtual void run() override;
 
-  void setPortName(const QString &name);
+  void setPortName(const QString &portName);
+  void setFileName(const QString &fileName);
 
 protected slots:
   void readData();
@@ -26,6 +29,10 @@ private:
   mutable QReadWriteLock mLock;
 
   QSharedPointer<QSerialPort> mSerialPort;
+  QSharedPointer<QFile> mFile;
+  QSharedPointer<QDataStream> mDataStream;
+  QSharedPointer<QElapsedTimer> mTimer;
 
   QString mPortName;
+  QString mFileName;
 };
