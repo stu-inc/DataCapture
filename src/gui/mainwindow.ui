@@ -24,11 +24,10 @@
        <attribute name="title">
         <string>Record</string>
        </attribute>
-       <layout class="QGridLayout" name="gridLayout_2"/>
       </widget>
-      <widget class="QWidget" name="tabPlay">
+      <widget class="PlaybackView" name="tabPlayback">
        <attribute name="title">
-        <string>Play</string>
+        <string>Playback</string>
        </attribute>
       </widget>
      </widget>
@@ -41,7 +40,7 @@
      <x>0</x>
      <y>0</y>
      <width>467</width>
-     <height>23</height>
+     <height>25</height>
     </rect>
    </property>
   </widget>
@@ -52,6 +51,12 @@
    <class>RecordView</class>
    <extends>QWidget</extends>
    <header>gui/RecordView.hpp</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>PlaybackView</class>
+   <extends>QWidget</extends>
+   <header>gui/PlaybackView.hpp</header>
    <container>1</container>
   </customwidget>
  </customwidgets>
