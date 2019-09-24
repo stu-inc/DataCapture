@@ -12,14 +12,18 @@ class RecordView : public QWidget {
   Q_OBJECT
 public:
   explicit RecordView(QWidget *parent = nullptr);
-  ~RecordView();
+  ~RecordView() override;
 
 protected slots:
   void startRecord();
   void stopRecord();
 
+protected:
+  virtual void timerEvent(QTimerEvent *e) override;
+
 private:
   Ui::RecordView *ui;
 
   QSharedPointer<SerialRecorder> mRecorder;
+  int mTimerId = -1;
 };

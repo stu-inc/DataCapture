@@ -22,6 +22,11 @@ void SerialRecorder::restart() {
   start();
 }
 
+qint64 SerialRecorder::getCurrentTime() const {
+  QReadLocker locker(&mLock);
+  return mTimer.isNull() || !mTimer->isValid() ? 0 : mTimer->elapsed();
+}
+
 void SerialRecorder::setPortName(const QString &portName) {
   QWriteLocker locker(&mLock);
   mPortName = portName;

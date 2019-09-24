@@ -13,6 +13,7 @@ public:
   ~RecordFileView();
 
   QString getFileName() const;
+  void setTimeText(const QString &timeText);
 
 protected slots:
   void selectFile();

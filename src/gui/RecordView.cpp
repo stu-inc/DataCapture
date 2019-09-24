@@ -1,6 +1,7 @@
 #include "RecordView.hpp"
 #include "serial/SerialRecorder.hpp"
 #include "ui_recordview.h"
+#include <QTime>
 
 RecordView::RecordView(QWidget *parent)
     : QWidget(parent), ui(new Ui::RecordView) {
@@ -27,6 +28,7 @@ void RecordView::startRecord() {
   mRecorder->setStopBits(ui->widgetSerialDevice->getStopBits());
 
   mRecorder->start();
+  mTimerId = startTimer(33);
 }
 
 void RecordView::stopRecord() {
@@ -37,4 +39,12 @@ void RecordView::stopRecord() {
   ui->groupBoxFile->setEnabled(true);
 
   mRecorder->stop();
+  killTimer(mTimerId);
+}
+
+void RecordView::timerEvent(QTimerEvent *e) {
+  QTime time(0, 0);
+  auto current = time.addMSecs(int(mRecorder->getCurrentTime()));
+  ui->widgetRecordFile->setTimeText(current.toString("HH:mm:ss:zzz"));
+  e->accept();
 }
