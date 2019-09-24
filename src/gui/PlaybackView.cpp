@@ -18,13 +18,12 @@ void PlaybackView::startPlayback() {
   ui->groupBoxFile->setEnabled(false);
   ui->pushButtonStopPlayback->setEnabled(true);
 
-  /*mRecorder->setPortName(ui->widgetSerialDevice->getCurrentDevice());
-  mRecorder->setFileName(ui->widgetRecordFile->getFileName());
-
-  mRecorder->setBaundRate(ui->widgetSerialDevice->getBaundRate());
-  mRecorder->setDataBits(ui->widgetSerialDevice->getDataBits());
-  mRecorder->setParity(ui->widgetSerialDevice->getParity());
-  mRecorder->setStopBits(ui->widgetSerialDevice->getStopBits());*/
+  mPlayer->setPortName(ui->widgetSerialDevice->getCurrentDevice());
+  mPlayer->setFileName(ui->widgetPlaybackFile->getFileName());
+  mPlayer->setBaundRate(ui->widgetSerialDevice->getBaundRate());
+  mPlayer->setDataBits(ui->widgetSerialDevice->getDataBits());
+  mPlayer->setParity(ui->widgetSerialDevice->getParity());
+  mPlayer->setStopBits(ui->widgetSerialDevice->getStopBits());
 
   mPlayer->start();
 }

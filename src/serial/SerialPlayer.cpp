@@ -5,7 +5,6 @@
 #include <QFile>
 #include <QJsonDocument>
 #include <QJsonObject>
-#include <QSerialPort>
 
 SerialPlayer::SerialPlayer(QObject *parent) : QThread(parent) {}
 
@@ -33,6 +32,26 @@ void SerialPlayer::setFileName(const QString &fileName) {
   mFileName = fileName;
 }
 
+void SerialPlayer::setBaundRate(QSerialPort::BaudRate baudRate) {
+  QWriteLocker locker(&mLock);
+  mBaundRate = baudRate;
+}
+
+void SerialPlayer::setDataBits(QSerialPort::DataBits dataBits) {
+  QWriteLocker locker(&mLock);
+  mDataBits = dataBits;
+}
+
+void SerialPlayer::setParity(QSerialPort::Parity parity) {
+  QWriteLocker locker(&mLock);
+  mParity = parity;
+}
+
+void SerialPlayer::setStopBits(QSerialPort::StopBits stopBits) {
+  QWriteLocker locker(&mLock);
+  mStopBits = stopBits;
+}
+
 void SerialPlayer::run() {
 
   mFile = QSharedPointer<QFile>::create();
@@ -54,6 +73,10 @@ void SerialPlayer::run() {
   {
     QReadLocker locker(&mLock);
     mSerialPort->setPortName(mPortName);
+    mSerialPort->setBaudRate(mBaundRate);
+    mSerialPort->setDataBits(mDataBits);
+    mSerialPort->setParity(mParity);
+    mSerialPort->setStopBits(mStopBits);
   }
 
   if (!mSerialPort->open(QIODevice::WriteOnly)) {

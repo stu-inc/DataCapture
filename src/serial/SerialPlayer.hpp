@@ -3,8 +3,8 @@
 #include <QReadWriteLock>
 #include <QSharedPointer>
 #include <QThread>
+#include <QtSerialPort>
 
-class QSerialPort;
 class QFile;
 class QElapsedTimer;
 
@@ -22,6 +22,11 @@ public:
   void setPortName(const QString &portName);
   void setFileName(const QString &fileName);
 
+  void setBaundRate(QSerialPort::BaudRate baudRate);
+  void setDataBits(QSerialPort::DataBits dataBits);
+  void setParity(QSerialPort::Parity parity);
+  void setStopBits(QSerialPort::StopBits stopBits);
+
 private:
   mutable QReadWriteLock mLock;
 
@@ -32,4 +37,9 @@ private:
 
   QString mPortName;
   QString mFileName;
+
+  QSerialPort::BaudRate mBaundRate;
+  QSerialPort::DataBits mDataBits;
+  QSerialPort::Parity mParity;
+  QSerialPort::StopBits mStopBits;
 };
