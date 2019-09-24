@@ -37,7 +37,7 @@
          </property>
          <layout class="QGridLayout" name="gridLayout_4">
           <item row="0" column="0">
-           <widget class="RecordFileView" name="widgetRecordFile" native="true"/>
+           <widget class="PlaybackFileView" name="widgetPlaybackFile" native="true"/>
           </item>
          </layout>
         </widget>
@@ -87,9 +87,9 @@
    <container>1</container>
   </customwidget>
   <customwidget>
-   <class>RecordFileView</class>
+   <class>PlaybackFileView</class>
    <extends>QWidget</extends>
-   <header>gui/RecordFileView.hpp</header>
+   <header>gui/PlaybackFileView.hpp</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

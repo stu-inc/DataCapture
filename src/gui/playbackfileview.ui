@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>RecordFileView</class>
- <widget class="QWidget" name="RecordFileView">
+ <class>PlaybackFileView</class>
+ <widget class="QWidget" name="PlaybackFileView">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -52,7 +52,7 @@
   <connection>
    <sender>toolButtonFile</sender>
    <signal>clicked()</signal>
-   <receiver>RecordFileView</receiver>
+   <receiver>PlaybackFileView</receiver>
    <slot>selectFile()</slot>
    <hints>
     <hint type="sourcelabel">
