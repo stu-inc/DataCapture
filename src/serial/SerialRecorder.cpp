@@ -3,6 +3,8 @@
 #include <QDebug>
 #include <QElapsedTimer>
 #include <QFile>
+#include <QJsonDocument>
+#include <QJsonObject>
 
 SerialRecorder::SerialRecorder(QObject *parent) : QThread(parent) {}
 
@@ -104,11 +106,24 @@ void SerialRecorder::run() {
     return;
   }
 
+  // Skip data info
+  *mDataStream << QByteArray(500, '0');
+
   mTimer->start();
 
   exec();
 
+  auto time = mTimer->elapsed();
   mTimer->invalidate();
+
+  // Data info
+  QJsonObject info;
+
+  info["FileSize"] = mFile->size();
+  info["TimeLength"] = time;
+
+  mFile->seek(0);
+  mFile->write(QJsonDocument(info).toBinaryData());
 
   mSerialPort->close();
   mFile->close();

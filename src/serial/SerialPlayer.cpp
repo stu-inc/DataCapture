@@ -3,6 +3,8 @@
 #include <QDebug>
 #include <QElapsedTimer>
 #include <QFile>
+#include <QJsonDocument>
+#include <QJsonObject>
 #include <QSerialPort>
 
 SerialPlayer::SerialPlayer(QObject *parent) : QThread(parent) {}
@@ -61,6 +63,13 @@ void SerialPlayer::run() {
   }
 
   mDataStream->setDevice(mFile.data());
+
+  auto info = QJsonDocument::fromBinaryData(mFile->read(500)).object();
+
+  int fileSize = info["FileSize"].toInt();
+  int timeLength = info["TimeLength"].toInt();
+
+  mDataStream->skipRawData(500);
 
   mTimer->start();
 
