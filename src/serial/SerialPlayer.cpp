@@ -22,6 +22,11 @@ void SerialPlayer::restart() {
   start();
 }
 
+qint64 SerialPlayer::getCurrentTime() const {
+  QReadLocker locker(&mLock);
+  return mTimer.isNull() || !mTimer->isValid() ? 0 : mTimer->elapsed();
+}
+
 void SerialPlayer::setPortName(const QString &name) {
   QWriteLocker locker(&mLock);
   mPortName = name;

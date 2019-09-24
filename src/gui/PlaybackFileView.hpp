@@ -13,6 +13,7 @@ public:
   ~PlaybackFileView();
 
   QString getFileName() const;
+  void setTimeText(const QString &text);
 
 protected slots:
   void selectFile();

@@ -26,6 +26,7 @@ void PlaybackView::startPlayback() {
   mPlayer->setStopBits(ui->widgetSerialDevice->getStopBits());
 
   mPlayer->start();
+  mTimerId = startTimer(33);
 }
 
 void PlaybackView::stopPlayback() {
@@ -36,4 +37,12 @@ void PlaybackView::stopPlayback() {
   ui->groupBoxFile->setEnabled(true);
 
   mPlayer->stop();
+  killTimer(mTimerId);
+}
+
+void PlaybackView::timerEvent(QTimerEvent *e) {
+  QTime time(0, 0);
+  auto current = time.addMSecs(int(mPlayer->getCurrentTime()));
+  ui->widgetPlaybackFile->setTimeText(current.toString("HH:mm:ss:zzz"));
+  e->accept();
 }

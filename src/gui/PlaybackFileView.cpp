@@ -13,6 +13,10 @@ QString PlaybackFileView::getFileName() const {
   return ui->lineEditFile->text();
 }
 
+void PlaybackFileView::setTimeText(const QString &text) {
+  ui->labelTime->setText(text);
+}
+
 void PlaybackFileView::selectFile() {
 
   auto fileName = QFileDialog::getOpenFileName(

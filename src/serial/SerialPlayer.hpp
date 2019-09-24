@@ -17,7 +17,7 @@ public:
   void stop();
   void restart();
 
-  virtual void run() override;
+  qint64 getCurrentTime() const;
 
   void setPortName(const QString &portName);
   void setFileName(const QString &fileName);
@@ -26,6 +26,9 @@ public:
   void setDataBits(QSerialPort::DataBits dataBits);
   void setParity(QSerialPort::Parity parity);
   void setStopBits(QSerialPort::StopBits stopBits);
+
+protected:
+  virtual void run() override;
 
 private:
   mutable QReadWriteLock mLock;
