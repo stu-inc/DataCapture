@@ -1,4 +1,6 @@
 #include "SerialPortComboBox.hpp"
+#include <QContextMenuEvent>
+#include <QMenu>
 #include <QSerialPortInfo>
 
 SerialPortComboBox::SerialPortComboBox(QWidget *parent) : QComboBox(parent) {
@@ -7,7 +9,17 @@ SerialPortComboBox::SerialPortComboBox(QWidget *parent) : QComboBox(parent) {
 
 SerialPortComboBox::~SerialPortComboBox() {}
 
-void SerialPortComboBox::focusInEvent(QFocusEvent *) { updateDeviceList(); }
+void SerialPortComboBox::contextMenuEvent(QContextMenuEvent *e) {
+
+  QMenu menu(this);
+
+  auto updateAction = new QAction("Update Device List", this);
+  connect(updateAction, &QAction::triggered, this,
+          &SerialPortComboBox::updateDeviceList);
+  menu.addAction(updateAction);
+
+  menu.exec(mapToGlobal(e->pos()));
+}
 
 void SerialPortComboBox::updateDeviceList() {
 

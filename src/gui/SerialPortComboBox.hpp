@@ -11,6 +11,6 @@ public:
 protected slots:
 
 protected:
-  virtual void focusInEvent(QFocusEvent *e) override;
+  virtual void contextMenuEvent(QContextMenuEvent *e) override;
   void updateDeviceList();
 };
