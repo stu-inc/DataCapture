@@ -92,12 +92,10 @@ void SerialPlayer::run() {
 
   mDataStream->setDevice(mFile.data());
 
-  auto info = QJsonDocument::fromBinaryData(mFile->read(500)).object();
+  auto info = QJsonDocument::fromBinaryData(mFile->read(1000)).object();
 
   int fileSize = info["FileSize"].toInt();
   int timeLength = info["TimeLength"].toInt();
-
-  mDataStream->skipRawData(500);
 
   mTimer->start();
 

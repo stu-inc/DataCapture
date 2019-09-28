@@ -87,8 +87,6 @@ void SerialRecorder::run() {
     return;
   }
 
-  mDataStream->setDevice(mFile.data());
-
   {
     QReadLocker locker(&mLock);
     mSerialPort->setPortName(mPortName);
@@ -111,8 +109,10 @@ void SerialRecorder::run() {
     return;
   }
 
-  // Skip data info
-  *mDataStream << QByteArray(500, '0');
+  // Fill up data info segments with zero
+  mFile->write(QByteArray(1000, '0'));
+
+  mDataStream->setDevice(mFile.data());
 
   mTimer->start();
 
