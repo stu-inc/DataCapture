@@ -70,6 +70,7 @@ void UdpRecorder::run() {
     return;
   }
 
+  // FIXME: why can not connect this signal?
   // connect(mUdpSocket.data(), &QUdpSocket::error, this,
   // &UdpRecorder::showError);
 

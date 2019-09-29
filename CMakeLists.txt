@@ -15,7 +15,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 set(CMAKE_OSX_DEPLOYMENT_TARGET "10.12")
 
-find_package(Qt5 COMPONENTS Widgets SerialPort)
+find_package(Qt5 COMPONENTS Widgets Network SerialPort)
 
 include_directories("${CMAKE_CURRENT_SOURCE_DIR}/src")
 
@@ -39,4 +39,4 @@ if(APPLE)
     set(APPLE_GUI_BUNDLE_VERSION ${PROJECT_VERSION})
 endif()
 
-target_link_libraries(${PROJECT_NAME} PRIVATE Qt5::Widgets Qt5::SerialPort)
+target_link_libraries(${PROJECT_NAME} PRIVATE Qt5::Widgets Qt5::Network Qt5::SerialPort)
