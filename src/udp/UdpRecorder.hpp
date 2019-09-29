@@ -20,10 +20,11 @@ public:
   qint64 getCurrentTime() const;
 
   void setPort(int port);
+  void setHostAddress(const QHostAddress &address);
   void setFileName(const QString &fileName);
 
 protected slots:
-  void readData();
+  void processPendingDatagram();
   void showError(QAbstractSocket::SocketError error);
 
 protected:
@@ -37,6 +38,7 @@ private:
   QSharedPointer<QDataStream> mDataStream;
   QSharedPointer<QElapsedTimer> mTimer;
 
+  QHostAddress mHostAddress;
   int mPort = 6666;
   QString mFileName;
 };

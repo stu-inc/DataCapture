@@ -5,6 +5,7 @@
 #include <QFile>
 #include <QJsonDocument>
 #include <QJsonObject>
+#include <QNetworkDatagram>
 
 UdpRecorder::UdpRecorder(QObject *parent) : QThread(parent) {}
 
@@ -32,19 +33,28 @@ void UdpRecorder::setPort(int port) {
   mPort = port;
 }
 
+void UdpRecorder::setHostAddress(const QHostAddress &address) {
+  QWriteLocker locker(&mLock);
+  mHostAddress = address;
+}
+
 void UdpRecorder::setFileName(const QString &fileName) {
   QWriteLocker locker(&mLock);
   mFileName = fileName;
 }
 
-void UdpRecorder::readData() {
-  QByteArray datagram;
-  datagram.resize(int(mUdpSocket->pendingDatagramSize()));
-  mUdpSocket->readDatagram(datagram.data(), datagram.size());
-  if (mTimer->isValid()) {
-    *mDataStream << mTimer->elapsed();
-    *mDataStream << datagram;
-    qDebug() << datagram;
+void UdpRecorder::processPendingDatagram() {
+
+  auto socket = qobject_cast<QUdpSocket *>(sender());
+
+  while (socket->hasPendingDatagrams()) {
+
+    auto datagram = socket->receiveDatagram().data();
+
+    if (mTimer->isValid()) {
+      *mDataStream << mTimer->elapsed();
+      *mDataStream << datagram;
+    }
   }
 }
 
@@ -74,17 +84,18 @@ void UdpRecorder::run() {
   // connect(mUdpSocket.data(), &QUdpSocket::error, this,
   // &UdpRecorder::showError);
 
-  connect(mUdpSocket.data(), &QUdpSocket::readyRead, this,
-          &UdpRecorder::readData);
-
   {
     QReadLocker locker(&mLock);
-    if (!mUdpSocket->bind(QHostAddress::Any, quint16(mPort))) {
+    if (!mUdpSocket->bind(mHostAddress, quint16(mPort))) {
       qWarning() << "Can not bind udp server: " + QString::number(mPort)
                  << mUdpSocket->error();
       return;
     }
   }
+
+  connect(mUdpSocket.data(), &QUdpSocket::readyRead, this,
+          &UdpRecorder::processPendingDatagram,
+          Qt::ConnectionType::BlockingQueuedConnection);
 
   // Fill up data info segments with zero
   mFile->write(QByteArray(1000, '0'));

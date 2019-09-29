@@ -3,6 +3,7 @@
 #include <QWidget>
 
 class SerialRecorder;
+class UdpRecorder;
 
 namespace Ui {
 class RecordView;
@@ -18,12 +19,15 @@ protected slots:
   void startRecord();
   void stopRecord();
 
+  void changeInterface(int index);
+
 protected:
   virtual void timerEvent(QTimerEvent *e) override;
 
 private:
   Ui::RecordView *ui;
 
-  QSharedPointer<SerialRecorder> mRecorder;
+  QSharedPointer<SerialRecorder> mSerialRecorder;
+  QSharedPointer<UdpRecorder> mUdpRecorder;
   int mTimerId = -1;
 };
