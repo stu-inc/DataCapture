@@ -19,6 +19,8 @@ find_package(Qt5 COMPONENTS Widgets SerialPort)
 
 include_directories("${CMAKE_CURRENT_SOURCE_DIR}/src")
 
+configure_file(${CMAKE_CURRENT_SOURCE_DIR}/src/CMakeAuto.txt ${PROJECT_BINARY_DIR}/autodef.hpp)
+
 if(WIN32)
     set(APP_BUNDLE WIN32)
 elseif(APPLE)
