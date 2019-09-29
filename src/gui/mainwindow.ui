@@ -30,6 +30,11 @@
         <string>Playback</string>
        </attribute>
       </widget>
+      <widget class="QWidget" name="tabRelay">
+       <attribute name="title">
+        <string>Relay</string>
+       </attribute>
+      </widget>
      </widget>
     </item>
    </layout>

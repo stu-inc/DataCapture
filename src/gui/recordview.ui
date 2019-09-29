@@ -21,7 +21,7 @@
        <item>
         <widget class="QGroupBox" name="groupBoxDevice">
          <property name="title">
-          <string>Device</string>
+          <string>Input</string>
          </property>
          <layout class="QGridLayout" name="gridLayout_3">
           <item row="0" column="0">
@@ -33,7 +33,7 @@
        <item>
         <widget class="QGroupBox" name="groupBoxFile">
          <property name="title">
-          <string>File</string>
+          <string>Output</string>
          </property>
          <layout class="QGridLayout" name="gridLayout_4">
           <item row="0" column="0">
