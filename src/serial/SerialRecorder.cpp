@@ -96,18 +96,20 @@ void SerialRecorder::run() {
     mSerialPort->setStopBits(mStopBits);
   }
 
-  connect(mSerialPort.data(), &QSerialPort::errorOccurred, this,
-          &SerialRecorder::showError);
-
-  connect(mSerialPort.data(), &QSerialPort::readyRead, this,
-          &SerialRecorder::readData);
-
   if (!mSerialPort->open(QIODevice::ReadWrite)) {
     QReadLocker locker(&mLock);
     qWarning() << "Can not open serial port: " + mPortName
                << mSerialPort->error();
     return;
   }
+
+  mSerialPort->clear();
+
+  connect(mSerialPort.data(), &QSerialPort::errorOccurred, this,
+          &SerialRecorder::showError);
+
+  connect(mSerialPort.data(), &QSerialPort::readyRead, this,
+          &SerialRecorder::readData, Qt::BlockingQueuedConnection);
 
   // Fill up data info segments with zero
   mFile->write(QByteArray(1000, '0'));
