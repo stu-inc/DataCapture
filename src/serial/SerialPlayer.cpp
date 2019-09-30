@@ -110,6 +110,7 @@ void SerialPlayer::run() {
     while (true) {
       if (mTimer->elapsed() >= time) {
         mSerialPort->write(bytes);
+        mSerialPort->flush();
         break;
       }
       msleep(10);
