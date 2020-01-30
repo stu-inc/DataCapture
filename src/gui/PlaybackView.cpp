@@ -24,6 +24,7 @@ void PlaybackView::startPlayback() {
   mPlayer->setDataBits(ui->widgetSerialDevice->getDataBits());
   mPlayer->setParity(ui->widgetSerialDevice->getParity());
   mPlayer->setStopBits(ui->widgetSerialDevice->getStopBits());
+  mPlayer->setByteOrder(ui->widgetSerialDevice->getByteOrder());
 
   mPlayer->start();
   mTimerId = startTimer(33);
