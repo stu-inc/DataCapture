@@ -57,9 +57,25 @@ void SerialRecorder::setStopBits(QSerialPort::StopBits stopBits) {
   mStopBits = stopBits;
 }
 
+void SerialRecorder::setByteOrder(QSysInfo::Endian byteOrder) {
+  QWriteLocker locker(&mLock);
+  mByteOrder = byteOrder;
+}
+
 void SerialRecorder::readData() {
+
   auto bytes = mSerialPort->readAll();
+
   if (mTimer->isValid()) {
+
+    {
+      QReadLocker locker(&mLock);
+      if (mByteOrder == QSysInfo::LittleEndian) {
+        // Convert to Big Endian
+        std::reverse(bytes.begin(), bytes.end());
+      }
+    }
+
     *mDataStream << mTimer->elapsed();
     *mDataStream << bytes;
   }

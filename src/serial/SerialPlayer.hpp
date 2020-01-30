@@ -26,6 +26,7 @@ public:
   void setDataBits(QSerialPort::DataBits dataBits);
   void setParity(QSerialPort::Parity parity);
   void setStopBits(QSerialPort::StopBits stopBits);
+  void setByteOrder(QSysInfo::Endian byteOrder);
 
 protected:
   virtual void run() override;
@@ -45,4 +46,5 @@ private:
   QSerialPort::DataBits mDataBits;
   QSerialPort::Parity mParity;
   QSerialPort::StopBits mStopBits;
+  QSysInfo::Endian mByteOrder;
 };

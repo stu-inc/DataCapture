@@ -57,6 +57,11 @@ void SerialPlayer::setStopBits(QSerialPort::StopBits stopBits) {
   mStopBits = stopBits;
 }
 
+void SerialPlayer::setByteOrder(QSysInfo::Endian byteOrder) {
+  QWriteLocker locker(&mLock);
+  mByteOrder = byteOrder;
+}
+
 void SerialPlayer::run() {
 
   mFile = QSharedPointer<QFile>::create();
@@ -106,6 +111,14 @@ void SerialPlayer::run() {
 
     *mDataStream >> time;
     *mDataStream >> bytes;
+
+    {
+      QReadLocker locker(&mLock);
+      if (mByteOrder == QSysInfo::LittleEndian) {
+        // Convert to Litlle Endian
+        std::reverse(bytes.begin(), bytes.end());
+      }
+    }
 
     while (true) {
       if (mTimer->elapsed() >= time) {
