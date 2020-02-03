@@ -17,26 +17,4 @@ set(CMAKE_OSX_DEPLOYMENT_TARGET "10.12")
 
 find_package(Qt5 COMPONENTS Widgets Network SerialPort)
 
-include_directories("${CMAKE_CURRENT_SOURCE_DIR}/src")
-
-configure_file(${CMAKE_CURRENT_SOURCE_DIR}/src/CMakeAuto.txt ${PROJECT_BINARY_DIR}/autodef.hpp)
-
-if(WIN32)
-    set(APP_BUNDLE WIN32)
-elseif(APPLE)
-    set(APP_BUNDLE MACOSX_BUNDLE)
-endif()
-
-file(GLOB_RECURSE RESOURCES ${CMAKE_CURRENT_SOURCE_DIR}/src/*[.rc])
-file(GLOB_RECURSE SOURCES ${CMAKE_CURRENT_SOURCE_DIR}/src/*[.cpp|.hpp|.ui])
-
-add_executable(${PROJECT_NAME} ${APP_BUNDLE} ${SOURCES} ${RESOURCES})
-
-if(APPLE)
-    set_target_properties(${PROJECT_NAME} PROPERTIES MACOSX_BUNDLE_INFO_PLIST ${CMAKE_CURRENT_SOURCE_DIR}/res/mac/AppleInfo.plist)
-    set(APPLE_GUI_BUNDLE_NAME ${PROJECT_NAME})
-    set(APPLE_GUI_EXECUTABLE ${PROJECT_NAME})
-    set(APPLE_GUI_BUNDLE_VERSION ${PROJECT_VERSION})
-endif()
-
-target_link_libraries(${PROJECT_NAME} PRIVATE Qt5::Widgets Qt5::Network Qt5::SerialPort)
+add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/src)
