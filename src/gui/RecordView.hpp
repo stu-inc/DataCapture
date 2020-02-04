@@ -4,6 +4,7 @@
 
 class SerialRecorder;
 class UdpRecorder;
+class TcpRecorder;
 
 namespace Ui {
 class RecordView;
@@ -13,7 +14,7 @@ class RecordView : public QWidget {
   Q_OBJECT
 public:
   explicit RecordView(QWidget *parent = nullptr);
-  ~RecordView() override;
+  virtual ~RecordView() override;
 
 protected slots:
   void startRecord();
@@ -29,5 +30,6 @@ private:
 
   QSharedPointer<SerialRecorder> mSerialRecorder;
   QSharedPointer<UdpRecorder> mUdpRecorder;
+  QSharedPointer<TcpRecorder> mTcpRecorder;
   int mTimerId = -1;
 };

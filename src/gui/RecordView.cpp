@@ -2,18 +2,25 @@
 #include "NetworkView.hpp"
 #include "SerialDeviceView.hpp"
 #include "serial/SerialRecorder.hpp"
+#include "tcp/TcpRecorder.hpp"
 #include "udp/UdpRecorder.hpp"
 #include "ui_recordview.h"
 #include <QTime>
 
 RecordView::RecordView(QWidget *parent)
     : QWidget(parent), ui(new Ui::RecordView) {
+
   ui->setupUi(this);
+
   ui->pushButtonStopRecord->setEnabled(false);
+
   ui->comboBoxInterface->addItem("Serial Port");
   ui->comboBoxInterface->addItem("UDP");
+  ui->comboBoxInterface->addItem("TCP");
+
   mSerialRecorder = QSharedPointer<SerialRecorder>::create();
   mUdpRecorder = QSharedPointer<UdpRecorder>::create();
+  mTcpRecorder = QSharedPointer<TcpRecorder>::create();
 }
 
 RecordView::~RecordView() { delete ui; }
@@ -51,6 +58,17 @@ void RecordView::startRecord() {
     mUdpRecorder->setFileName(ui->widgetRecordFile->getFileName());
 
     mUdpRecorder->start();
+
+  } else if (ui->comboBoxInterface->currentIndex() == 2 /* TCP */) {
+
+    auto w =
+        qobject_cast<NetworkView *>(ui->gridLayoutInput->itemAt(0)->widget());
+
+    mTcpRecorder->setHostAddress(w->getHostAddress());
+    mTcpRecorder->setPort(w->getPort());
+    mTcpRecorder->setFileName(ui->widgetRecordFile->getFileName());
+
+    mTcpRecorder->start();
   }
 
   mTimerId = startTimer(33);
@@ -67,6 +85,8 @@ void RecordView::stopRecord() {
     mSerialRecorder->stop();
   } else if (ui->comboBoxInterface->currentIndex() == 1 /* UDP */) {
     mUdpRecorder->stop();
+  } else if (ui->comboBoxInterface->currentIndex() == 2 /* TCP */) {
+    mTcpRecorder->stop();
   }
 
   killTimer(mTimerId);
@@ -80,7 +100,7 @@ void RecordView::changeInterface(int index) {
     ui->gridLayoutInput->replaceWidget(w, new SerialDeviceView);
     delete w;
 
-  } else if (index == 1 /* UDP */) {
+  } else if (index == 1 /* UDP */ || index == 2 /* TCP */) {
 
     auto w = ui->gridLayoutInput->itemAt(0)->widget();
     ui->gridLayoutInput->replaceWidget(w, new NetworkView);
@@ -96,6 +116,8 @@ void RecordView::timerEvent(QTimerEvent *e) {
     currentTime = int(mSerialRecorder->getCurrentTime());
   } else if (ui->comboBoxInterface->currentIndex() == 1 /* UDP */) {
     currentTime = int(mUdpRecorder->getCurrentTime());
+  } else if (ui->comboBoxInterface->currentIndex() == 2 /* TCP */) {
+    currentTime = int(mTcpRecorder->getCurrentTime());
   }
 
   QTime time(0, 0);
