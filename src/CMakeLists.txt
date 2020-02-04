@@ -1,5 +1,6 @@
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/task)
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/udp)
+add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/tcp)
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/serial)
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/gui)
 
@@ -27,7 +28,7 @@ endif()
 
 target_include_directories(SerialCapture PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
 
-target_link_libraries(SerialCapture PRIVATE serial udp gui task)
+target_link_libraries(SerialCapture PRIVATE serial udp tcp gui task)
 target_link_libraries(SerialCapture PRIVATE Qt5::Widgets Qt5::Network Qt5::SerialPort)
 
 if(WIN32)
