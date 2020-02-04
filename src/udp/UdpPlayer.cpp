@@ -32,6 +32,11 @@ void UdpPlayer::setPort(int port) {
   mPort = port;
 }
 
+void UdpPlayer::setHostAddress(const QHostAddress &address) {
+  QWriteLocker locker(&mLock);
+  mHostAddress = address;
+}
+
 void UdpPlayer::setFileName(const QString &fileName) {
   QWriteLocker locker(&mLock);
   mFileName = fileName;
@@ -44,6 +49,7 @@ void UdpPlayer::run() {
   mUdpSocket = QSharedPointer<QUdpSocket>::create();
   mTimer = QSharedPointer<QElapsedTimer>::create();
   quint16 port = 0;
+  QHostAddress hostAddress;
 
   {
     QReadLocker locker(&mLock);
@@ -59,6 +65,7 @@ void UdpPlayer::run() {
   {
     QReadLocker locker(&mLock);
     port = quint16(mPort);
+    hostAddress = mHostAddress;
   }
 
   // Unnecessary?
@@ -87,7 +94,7 @@ void UdpPlayer::run() {
 
     while (true) {
       if (mTimer->elapsed() >= time) {
-        mUdpSocket->writeDatagram(datagram, QHostAddress::LocalHost, port);
+        mUdpSocket->writeDatagram(datagram, hostAddress, port);
         break;
       }
       msleep(10);

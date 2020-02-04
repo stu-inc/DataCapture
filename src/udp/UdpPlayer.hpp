@@ -20,6 +20,7 @@ public:
   qint64 getCurrentTime() const;
 
   void setPort(int port);
+  void setHostAddress(const QHostAddress &address);
   void setFileName(const QString &fileName);
 
 protected:
@@ -33,6 +34,7 @@ private:
   QSharedPointer<QDataStream> mDataStream;
   QSharedPointer<QElapsedTimer> mTimer;
 
+  QHostAddress mHostAddress;
   int mPort = 6666;
   QString mFileName;
 };
