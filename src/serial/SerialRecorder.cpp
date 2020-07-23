@@ -132,7 +132,7 @@ void SerialRecorder::run() {
   info["TimeLength"] = time;
 
   mFile->seek(0);
-  mFile->write(QJsonDocument(info).toBinaryData());
+  mFile->write(QJsonDocument(info).toJson());
 
   mSerialPort->close();
   mFile->close();

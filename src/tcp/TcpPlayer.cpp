@@ -73,7 +73,7 @@ void TcpPlayer::run() {
 
   mDataStream->setDevice(mFile.data());
 
-  auto info = QJsonDocument::fromBinaryData(mFile->read(1000)).object();
+  auto info = QJsonDocument::fromJson(mFile->read(1000)).object();
 
   int fileSize = info["FileSize"].toInt();
   int timeLength = info["TimeLength"].toInt();
