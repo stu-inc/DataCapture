@@ -94,7 +94,7 @@ void UdpRecorder::run() {
   }
 
   connect(mUdpSocket.data(), &QUdpSocket::readyRead, this,
-          &UdpRecorder::processPendingDatagram, Qt::BlockingQueuedConnection);
+          &UdpRecorder::processPendingDatagram);
 
   // Fill up data info segments with zero
   mFile->write(QByteArray(1000, '0'));

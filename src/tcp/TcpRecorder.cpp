@@ -89,7 +89,7 @@ void TcpRecorder::run() {
   }
 
   connect(mTcpSocket.data(), &QTcpSocket::readyRead, this,
-          &TcpRecorder::readData, Qt::BlockingQueuedConnection);
+          &TcpRecorder::readData);
 
   // Fill up data info segments with zero
   mFile->write(QByteArray(1000, '0'));

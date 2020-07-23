@@ -116,7 +116,7 @@ void SerialRecorder::run() {
           &SerialRecorder::showError);
 
   connect(mSerialPort.data(), &QSerialPort::readyRead, this,
-          &SerialRecorder::readData, Qt::BlockingQueuedConnection);
+          &SerialRecorder::readData);
 
   if (!mSerialPort->open(QIODevice::ReadWrite)) {
     QReadLocker locker(&mLock);
