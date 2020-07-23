@@ -4,7 +4,9 @@
 
 SerialDeviceView::SerialDeviceView(QWidget *parent)
     : QWidget(parent), ui(new Ui::SerialDeviceView) {
+
   ui->setupUi(this);
+
   ui->comboBoxPort->setCurrentIndex(-1);
 
   ui->comboBoxBaudRate->addItem("1200 baud", QSerialPort::Baud1200);
@@ -39,11 +41,6 @@ SerialDeviceView::SerialDeviceView(QWidget *parent)
   ui->comboBoxStopBits->addItem("TwoStop", QSerialPort::TwoStop);
 
   ui->comboBoxStopBits->setCurrentIndex(0);
-
-  ui->comboBoxByteOrder->addItem("LittleEndian", QSysInfo::LittleEndian);
-  ui->comboBoxByteOrder->addItem("BigEndian", QSysInfo::BigEndian);
-
-  ui->comboBoxByteOrder->setCurrentIndex(0);
 }
 
 SerialDeviceView::~SerialDeviceView() { delete ui; }
@@ -70,11 +67,6 @@ QSerialPort::Parity SerialDeviceView::getParity() const {
 QSerialPort::StopBits SerialDeviceView::getStopBits() const {
   return static_cast<QSerialPort::StopBits>(
       ui->comboBoxStopBits->currentData().toInt());
-}
-
-QSysInfo::Endian SerialDeviceView::getByteOrder() const {
-  return static_cast<QSysInfo::Endian>(
-      ui->comboBoxByteOrder->currentData().toInt());
 }
 
 void SerialDeviceView::updateDeviceInfo(const QString &name) {

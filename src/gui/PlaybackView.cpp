@@ -43,7 +43,6 @@ void PlaybackView::startPlayback() {
     mSerialPlayer->setDataBits(w->getDataBits());
     mSerialPlayer->setParity(w->getParity());
     mSerialPlayer->setStopBits(w->getStopBits());
-    mSerialPlayer->setByteOrder(w->getByteOrder());
 
     mSerialPlayer->start();
 

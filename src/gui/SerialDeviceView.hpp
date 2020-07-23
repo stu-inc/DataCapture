@@ -18,7 +18,6 @@ public:
   QSerialPort::DataBits getDataBits() const;
   QSerialPort::Parity getParity() const;
   QSerialPort::StopBits getStopBits() const;
-  QSysInfo::Endian getByteOrder() const;
 
 protected slots:
   void updateDeviceInfo(const QString &name);

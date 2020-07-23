@@ -44,7 +44,6 @@ void RecordView::startRecord() {
     mSerialRecorder->setDataBits(w->getDataBits());
     mSerialRecorder->setParity(w->getParity());
     mSerialRecorder->setStopBits(w->getStopBits());
-    mSerialRecorder->setByteOrder(w->getByteOrder());
 
     mSerialRecorder->start();
 

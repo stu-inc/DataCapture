@@ -14,10 +14,20 @@
    <string>Form</string>
   </property>
   <layout class="QGridLayout" name="gridLayout">
+   <item row="4" column="1">
+    <widget class="QComboBox" name="comboBoxStopBits"/>
+   </item>
    <item row="3" column="0">
     <widget class="QLabel" name="label_5">
      <property name="text">
       <string>Parity:</string>
+     </property>
+    </widget>
+   </item>
+   <item row="2" column="0">
+    <widget class="QLabel" name="label_4">
+     <property name="text">
+      <string>Data Bits:</string>
      </property>
     </widget>
    </item>
@@ -27,6 +37,15 @@
       <string>Stop Bits:</string>
      </property>
     </widget>
+   </item>
+   <item row="5" column="1">
+    <widget class="QTextBrowser" name="textBrowserInfo"/>
+   </item>
+   <item row="0" column="1">
+    <widget class="SerialPortComboBox" name="comboBoxPort"/>
+   </item>
+   <item row="1" column="1">
+    <widget class="QComboBox" name="comboBoxBaudRate"/>
    </item>
    <item row="1" column="0">
     <widget class="QLabel" name="label_3">
@@ -38,12 +57,6 @@
    <item row="2" column="1">
     <widget class="QComboBox" name="comboBoxDataBits"/>
    </item>
-   <item row="6" column="1">
-    <widget class="QTextBrowser" name="textBrowserInfo"/>
-   </item>
-   <item row="0" column="1">
-    <widget class="SerialPortComboBox" name="comboBoxPort"/>
-   </item>
    <item row="3" column="1">
     <widget class="QComboBox" name="comboBoxParity"/>
    </item>
@@ -54,35 +67,12 @@
      </property>
     </widget>
    </item>
-   <item row="2" column="0">
-    <widget class="QLabel" name="label_4">
-     <property name="text">
-      <string>Data Bits:</string>
-     </property>
-    </widget>
-   </item>
-   <item row="6" column="0">
+   <item row="5" column="0">
     <widget class="QLabel" name="label_2">
      <property name="text">
       <string>Info:</string>
      </property>
     </widget>
-   </item>
-   <item row="4" column="1">
-    <widget class="QComboBox" name="comboBoxStopBits"/>
-   </item>
-   <item row="1" column="1">
-    <widget class="QComboBox" name="comboBoxBaudRate"/>
-   </item>
-   <item row="5" column="0">
-    <widget class="QLabel" name="label_7">
-     <property name="text">
-      <string>Byte Order:</string>
-     </property>
-    </widget>
-   </item>
-   <item row="5" column="1">
-    <widget class="QComboBox" name="comboBoxByteOrder"/>
    </item>
   </layout>
  </widget>
