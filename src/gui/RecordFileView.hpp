@@ -14,6 +14,7 @@ public:
 
   QString getFileName() const;
   void setTimeText(const QString &timeText);
+  void setSizeText(const QString &sizeText);
 
 protected slots:
   void selectFile();

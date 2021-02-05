@@ -27,6 +27,11 @@ qint64 SerialRecorder::getCurrentTime() const {
   return mTimer.isNull() || !mTimer->isValid() ? 0 : mTimer->elapsed();
 }
 
+qint64 SerialRecorder::getCurrentFileSize() const {
+  QReadLocker locker(&mLock);
+  return mFile.isNull() ? 0 : mFile->size() - 1000;
+}
+
 void SerialRecorder::setPortName(const QString &portName) {
   QWriteLocker locker(&mLock);
   mPortName = portName;

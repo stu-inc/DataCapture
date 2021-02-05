@@ -110,19 +110,24 @@ void RecordView::changeInterface(int index) {
 void RecordView::timerEvent(QTimerEvent *e) {
 
   int currentTime = 0;
+  qint64 fileSize = 0;
 
   if (ui->comboBoxInterface->currentIndex() == 0 /* Serial Port */) {
     currentTime = int(mSerialRecorder->getCurrentTime());
+    fileSize = mSerialRecorder->getCurrentFileSize();
   } else if (ui->comboBoxInterface->currentIndex() == 1 /* UDP */) {
     currentTime = int(mUdpRecorder->getCurrentTime());
+    fileSize = mUdpRecorder->getCurrentFileSize();
   } else if (ui->comboBoxInterface->currentIndex() == 2 /* TCP */) {
     currentTime = int(mTcpRecorder->getCurrentTime());
+    fileSize = mTcpRecorder->getCurrentFileSize();
   }
 
   QTime time(0, 0);
   auto current = time.addMSecs(currentTime);
 
   ui->widgetRecordFile->setTimeText(current.toString("HH:mm:ss:zzz"));
+  ui->widgetRecordFile->setSizeText(QString::number(fileSize));
 
   e->accept();
 }

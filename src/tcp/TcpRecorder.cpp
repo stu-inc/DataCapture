@@ -28,6 +28,11 @@ qint64 TcpRecorder::getCurrentTime() const {
   return mTimer.isNull() || !mTimer->isValid() ? 0 : mTimer->elapsed();
 }
 
+qint64 TcpRecorder::getCurrentFileSize() const {
+  QReadLocker locker(&mLock);
+  return mFile.isNull() ? 0 : mFile->size() - 1000;
+}
+
 void TcpRecorder::setPort(int port) {
   QWriteLocker locker(&mLock);
   mPort = port;

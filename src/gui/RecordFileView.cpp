@@ -15,6 +15,10 @@ void RecordFileView::setTimeText(const QString &timeText) {
   ui->labelTime->setText(timeText);
 }
 
+void RecordFileView::setSizeText(const QString &sizeText) {
+  ui->labelSize->setText(sizeText);
+}
+
 void RecordFileView::selectFile() {
 
   auto fileName = QFileDialog::getSaveFileName(

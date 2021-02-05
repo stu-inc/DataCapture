@@ -19,6 +19,7 @@ public:
   void restart();
 
   qint64 getCurrentTime() const;
+  qint64 getCurrentFileSize() const;
 
   void setPort(int port);
   void setHostAddress(const QHostAddress &address);

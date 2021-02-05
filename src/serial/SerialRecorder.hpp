@@ -18,6 +18,7 @@ public:
   void restart();
 
   qint64 getCurrentTime() const;
+  qint64 getCurrentFileSize() const;
 
   void setPortName(const QString &portName);
   void setFileName(const QString &fileName);
