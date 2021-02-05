@@ -1,2 +1,5 @@
 # SerialCapture
-シリアル通信をキャプチャするアプリ
+Record and playback network and serial data
+
+# License
+MIT License
