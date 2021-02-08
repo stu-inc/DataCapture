@@ -14,7 +14,7 @@ UdpRecorder::~UdpRecorder() { stop(); }
 void UdpRecorder::start() { QThread::start(); }
 
 void UdpRecorder::stop() {
-  quit();
+  requestInterruption();
   wait();
 }
 
@@ -46,21 +46,6 @@ void UdpRecorder::setHostAddress(const QHostAddress &address) {
 void UdpRecorder::setFileName(const QString &fileName) {
   QWriteLocker locker(&mLock);
   mFileName = fileName;
-}
-
-void UdpRecorder::processPendingDatagram() {
-
-  auto socket = qobject_cast<QUdpSocket *>(sender());
-
-  while (socket->hasPendingDatagrams()) {
-
-    auto datagram = socket->receiveDatagram().data();
-
-    if (mTimer->isValid()) {
-      *mDataStream << mTimer->elapsed();
-      *mDataStream << datagram;
-    }
-  }
 }
 
 void UdpRecorder::showError(QAbstractSocket::SocketError error) {
@@ -98,9 +83,6 @@ void UdpRecorder::run() {
     }
   }
 
-  connect(mUdpSocket.data(), &QUdpSocket::readyRead, this,
-          &UdpRecorder::processPendingDatagram);
-
   // Fill up data info segments with zero
   mFile->write(QByteArray(1000, '0'));
 
@@ -108,7 +90,23 @@ void UdpRecorder::run() {
 
   mTimer->start();
 
-  exec();
+  while (!isInterruptionRequested()) {
+
+    if (mUdpSocket->waitForReadyRead(100)) {
+
+      while (mUdpSocket->hasPendingDatagrams()) {
+
+        auto data = mUdpSocket->receiveDatagram().data();
+
+        QWriteLocker locker(&mLock);
+
+        if (mTimer->isValid()) {
+          *mDataStream << mTimer->elapsed();
+          *mDataStream << data;
+        }
+      }
+    }
+  }
 
   auto time = mTimer->elapsed();
   mTimer->invalidate();

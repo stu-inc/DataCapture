@@ -25,7 +25,6 @@ public:
   void setFileName(const QString &fileName);
 
 protected slots:
-  void processPendingDatagram();
   void showError(QAbstractSocket::SocketError error);
 
 protected:
