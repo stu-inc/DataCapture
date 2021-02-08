@@ -20,7 +20,7 @@ void PlaybackFileView::setTimeText(const QString &text) {
 void PlaybackFileView::selectFile() {
 
   auto fileName = QFileDialog::getOpenFileName(
-      nullptr, "Open File", QDir::home().path(), "Serial (*.serial)");
+      nullptr, "Open File", QDir::home().path(), "Data (*.data)");
 
   ui->lineEditFile->setText(fileName);
 }

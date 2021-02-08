@@ -22,7 +22,7 @@ void RecordFileView::setSizeText(const QString &sizeText) {
 void RecordFileView::selectFile() {
 
   auto fileName = QFileDialog::getSaveFileName(
-      nullptr, "Save File", QDir::home().path(), "Serial (*.serial)");
+      nullptr, "Save File", QDir::home().path(), "Data (*.data)");
 
   ui->lineEditFile->setText(fileName);
 }
