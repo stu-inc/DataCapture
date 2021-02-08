@@ -5,6 +5,7 @@
 #include <QFile>
 #include <QJsonDocument>
 #include <QJsonObject>
+#include <QUdpSocket>
 
 UdpPlayer::UdpPlayer(QObject *parent) : QThread(parent) {}
 
@@ -44,10 +45,10 @@ void UdpPlayer::setFileName(const QString &fileName) {
 
 void UdpPlayer::run() {
 
-  mFile = QSharedPointer<QFile>::create();
-  mDataStream = QSharedPointer<QDataStream>::create();
-  mUdpSocket = QSharedPointer<QUdpSocket>::create();
-  mTimer = QSharedPointer<QElapsedTimer>::create();
+  mFile.reset(new QFile);
+  mDataStream.reset(new QDataStream);
+  mUdpSocket.reset(new QUdpSocket);
+  mTimer.reset(new QElapsedTimer);
   quint16 port = 0;
   QHostAddress hostAddress;
 
@@ -97,7 +98,7 @@ void UdpPlayer::run() {
         mUdpSocket->writeDatagram(datagram, hostAddress, port);
         break;
       }
-      msleep(10);
+      msleep(1);
     }
 
     if (mDataStream->atEnd())
@@ -109,8 +110,8 @@ void UdpPlayer::run() {
   mUdpSocket->close();
   mFile->close();
 
-  mUdpSocket.clear();
-  mDataStream.clear();
-  mFile.clear();
-  mTimer.clear();
+  mUdpSocket.reset();
+  mDataStream.reset();
+  mFile.reset();
+  mTimer.reset();
 }

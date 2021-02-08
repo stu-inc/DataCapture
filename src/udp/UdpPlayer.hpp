@@ -1,12 +1,12 @@
 #pragma once
 
+#include <QHostAddress>
 #include <QReadWriteLock>
-#include <QSharedPointer>
 #include <QThread>
-#include <QUdpSocket>
 
 class QFile;
 class QElapsedTimer;
+class QUdpSocket;
 
 class UdpPlayer : public QThread {
 public:
@@ -29,10 +29,10 @@ protected:
 private:
   mutable QReadWriteLock mLock;
 
-  QSharedPointer<QUdpSocket> mUdpSocket;
-  QSharedPointer<QFile> mFile;
-  QSharedPointer<QDataStream> mDataStream;
-  QSharedPointer<QElapsedTimer> mTimer;
+  QScopedPointer<QUdpSocket> mUdpSocket;
+  QScopedPointer<QFile> mFile;
+  QScopedPointer<QDataStream> mDataStream;
+  QScopedPointer<QElapsedTimer> mTimer;
 
   QHostAddress mHostAddress;
   int mPort = 6666;
