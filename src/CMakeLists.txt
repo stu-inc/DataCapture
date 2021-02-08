@@ -15,34 +15,34 @@ elseif(APPLE)
     set(APP_BUNDLE MACOSX_BUNDLE)
 endif()
 
-add_executable(SerialCapture ${APP_BUNDLE} ${SOURCES} ${INCLUDES})
+add_executable(DataCapture ${APP_BUNDLE} ${SOURCES} ${INCLUDES})
 
-set_target_properties(SerialCapture PROPERTIES RUNTIME_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR})
+set_target_properties(DataCapture PROPERTIES RUNTIME_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR})
 
 if(APPLE)
-    set_target_properties(SerialCapture PROPERTIES MACOSX_BUNDLE_INFO_PLIST ${CMAKE_CURRENT_SOURCE_DIR}/../res/mac/AppleInfo.plist)
-    set(APPLE_GUI_BUNDLE_NAME SerialCapture)
-    set(APPLE_GUI_EXECUTABLE SerialCapture)
+    set_target_properties(DataCapture PROPERTIES MACOSX_BUNDLE_INFO_PLIST ${CMAKE_CURRENT_SOURCE_DIR}/../res/mac/AppleInfo.plist)
+    set(APPLE_GUI_BUNDLE_NAME DataCapture)
+    set(APPLE_GUI_EXECUTABLE DataCapture)
     set(APPLE_GUI_BUNDLE_VERSION ${PROJECT_VERSION})
 endif()
 
-target_include_directories(SerialCapture PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
+target_include_directories(DataCapture PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
 
-target_link_libraries(SerialCapture PRIVATE serial udp tcp gui task)
-target_link_libraries(SerialCapture PRIVATE Qt5::Widgets Qt5::Network Qt5::SerialPort)
+target_link_libraries(DataCapture PRIVATE serial udp tcp gui task)
+target_link_libraries(DataCapture PRIVATE Qt5::Widgets Qt5::Network Qt5::SerialPort)
 
 if(WIN32)
     add_custom_command(
-        TARGET SerialCapture
+        TARGET DataCapture
         POST_BUILD
-        COMMAND ${Qt5_DIR}/../../../bin/windeployqt --no-translations --no-system-d3d-compiler --no-compiler-runtime --no-angle $<TARGET_FILE:SerialCapture>
+        COMMAND ${Qt5_DIR}/../../../bin/windeployqt --no-translations --no-system-d3d-compiler --no-compiler-runtime --no-angle $<TARGET_FILE:DataCapture>
         WORKING_DIRECTORY ${PROJECT_BINARY_DIR}
     )
 elseif(APPLE)
     add_custom_command(
-        TARGET SerialCapture
+        TARGET DataCapture
         POST_BUILD
-        COMMAND ${Qt5_DIR}/../../../bin/macdeployqt SerialCapture.app
+        COMMAND ${Qt5_DIR}/../../../bin/macdeployqt DataCapture.app
         WORKING_DIRECTORY ${PROJECT_BINARY_DIR}
     )
 endif()

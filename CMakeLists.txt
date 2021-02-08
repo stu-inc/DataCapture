@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.5)
 
-project(SerialCapture VERSION 0.2.1 LANGUAGES CXX)
+project(DataCapture VERSION 0.2.1 LANGUAGES CXX)
 
 set(QTDIR $ENV{QTDIR})
 
