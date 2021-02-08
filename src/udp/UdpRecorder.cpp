@@ -6,6 +6,7 @@
 #include <QJsonDocument>
 #include <QJsonObject>
 #include <QNetworkDatagram>
+#include <QUdpSocket>
 
 UdpRecorder::UdpRecorder(QObject *parent) : QThread(parent) {}
 
@@ -54,10 +55,10 @@ void UdpRecorder::showError(QAbstractSocket::SocketError error) {
 
 void UdpRecorder::run() {
 
-  mFile = QSharedPointer<QFile>::create();
-  mDataStream = QSharedPointer<QDataStream>::create();
-  mUdpSocket = QSharedPointer<QUdpSocket>::create();
-  mTimer = QSharedPointer<QElapsedTimer>::create();
+  mFile.reset(new QFile);
+  mDataStream.reset(new QDataStream);
+  mUdpSocket.reset(new QUdpSocket);
+  mTimer.reset(new QElapsedTimer);
 
   {
     QReadLocker locker(&mLock);
@@ -123,8 +124,8 @@ void UdpRecorder::run() {
   mUdpSocket->close();
   mFile->close();
 
-  mUdpSocket.clear();
-  mDataStream.clear();
-  mFile.clear();
-  mTimer.clear();
+  mUdpSocket.reset();
+  mDataStream.reset();
+  mFile.reset();
+  mTimer.reset();
 }
