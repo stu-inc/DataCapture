@@ -17,6 +17,10 @@ void PlaybackFileView::setTimeText(const QString &text) {
   ui->labelTime->setText(text);
 }
 
+bool PlaybackFileView::getLoop() const { return ui->checkBoxLoop->isChecked(); }
+
+void PlaybackFileView::setLoop(bool b) { ui->checkBoxLoop->setChecked(b); }
+
 void PlaybackFileView::selectFile() {
 
   auto fileName = QFileDialog::getOpenFileName(

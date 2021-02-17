@@ -6,23 +6,30 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>269</width>
-    <height>72</height>
+    <width>288</width>
+    <height>98</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Form</string>
   </property>
   <layout class="QGridLayout" name="gridLayout">
-   <item row="0" column="0">
-    <widget class="QLabel" name="label">
+   <item row="0" column="1">
+    <widget class="QLineEdit" name="lineEditFile"/>
+   </item>
+   <item row="2" column="0">
+    <widget class="QLabel" name="label_2">
      <property name="text">
-      <string>File:</string>
+      <string>Time:</string>
      </property>
     </widget>
    </item>
-   <item row="0" column="1">
-    <widget class="QLineEdit" name="lineEditFile"/>
+   <item row="2" column="1" colspan="2">
+    <widget class="QLabel" name="labelTime">
+     <property name="text">
+      <string>00:00:00:000</string>
+     </property>
+    </widget>
    </item>
    <item row="0" column="2">
     <widget class="QToolButton" name="toolButtonFile">
@@ -31,17 +38,24 @@
      </property>
     </widget>
    </item>
-   <item row="1" column="0">
-    <widget class="QLabel" name="label_2">
+   <item row="0" column="0">
+    <widget class="QLabel" name="label">
      <property name="text">
-      <string>Time:</string>
+      <string>File:</string>
      </property>
     </widget>
    </item>
-   <item row="1" column="1" colspan="2">
-    <widget class="QLabel" name="labelTime">
+   <item row="1" column="1">
+    <widget class="QCheckBox" name="checkBoxLoop">
      <property name="text">
-      <string>00:00:00:000</string>
+      <string/>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="0">
+    <widget class="QLabel" name="label_3">
+     <property name="text">
+      <string>Loop:</string>
      </property>
     </widget>
    </item>

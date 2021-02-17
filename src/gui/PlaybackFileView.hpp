@@ -15,6 +15,9 @@ public:
   QString getFileName() const;
   void setTimeText(const QString &text);
 
+  bool getLoop() const;
+  void setLoop(bool b);
+
 protected slots:
   void selectFile();
 

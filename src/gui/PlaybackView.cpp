@@ -54,6 +54,7 @@ void PlaybackView::startPlayback() {
     mUdpPlayer->setHostAddress(w->getHostAddress());
     mUdpPlayer->setPort(w->getPort());
     mUdpPlayer->setFileName(ui->widgetPlaybackFile->getFileName());
+    mUdpPlayer->setLoop(ui->widgetPlaybackFile->getLoop());
 
     mUdpPlayer->start();
 

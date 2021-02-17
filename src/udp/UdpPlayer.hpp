@@ -22,6 +22,7 @@ public:
   void setPort(int port);
   void setHostAddress(const QHostAddress &address);
   void setFileName(const QString &fileName);
+  void setLoop(bool b);
 
 protected:
   virtual void run() override;
@@ -37,4 +38,5 @@ private:
   QHostAddress mHostAddress;
   int mPort = 6666;
   QString mFileName;
+  bool mLoop = false;
 };

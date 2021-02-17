@@ -43,6 +43,11 @@ void UdpPlayer::setFileName(const QString &fileName) {
   mFileName = fileName;
 }
 
+void UdpPlayer::setLoop(bool b) {
+  QWriteLocker locker(&mLock);
+  mLoop = b;
+}
+
 void UdpPlayer::run() {
 
   mFile.reset(new QFile);
@@ -101,8 +106,12 @@ void UdpPlayer::run() {
       msleep(1);
     }
 
-    if (mDataStream->atEnd())
-      break;
+    if (mDataStream->atEnd()) {
+      if (!mLoop)
+        break;
+      mFile->seek(1000);
+      mTimer->start();
+    }
   }
 
   mTimer->invalidate();
