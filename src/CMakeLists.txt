@@ -35,7 +35,7 @@ if(WIN32)
     add_custom_command(
         TARGET DataCapture
         POST_BUILD
-        COMMAND ${Qt6_DIR}/../../../bin/windeployqt --no-translations --no-system-d3d-compiler --no-compiler-runtime $<TARGET_FILE:DataCapture>
+        COMMAND ${Qt6_DIR}/../../../bin/windeployqt --no-translations --no-system-d3d-compiler --no-compiler-runtime --no-opengl-sw $<TARGET_FILE:DataCapture>
         WORKING_DIRECTORY ${PROJECT_BINARY_DIR}
     )
 elseif(APPLE)
