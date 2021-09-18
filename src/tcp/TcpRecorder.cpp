@@ -115,7 +115,7 @@ void TcpRecorder::run() {
   info["TimeLength"] = time;
 
   mFile->seek(0);
-  mFile->write(QJsonDocument(info).toJson());
+  mFile->write(QJsonDocument(info).toJson(QJsonDocument::Compact));
 
   mTcpSocket->close();
   mFile->close();

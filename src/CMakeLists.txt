@@ -29,20 +29,20 @@ endif()
 target_include_directories(DataCapture PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
 
 target_link_libraries(DataCapture PRIVATE serial udp tcp gui task)
-target_link_libraries(DataCapture PRIVATE Qt5::Widgets Qt5::Network Qt5::SerialPort)
+target_link_libraries(DataCapture PRIVATE Qt6::Widgets Qt6::Network Qt6::SerialPort)
 
 if(WIN32)
     add_custom_command(
         TARGET DataCapture
         POST_BUILD
-        COMMAND ${Qt5_DIR}/../../../bin/windeployqt --no-translations --no-system-d3d-compiler --no-compiler-runtime --no-angle $<TARGET_FILE:DataCapture>
+        COMMAND ${Qt6_DIR}/../../../bin/windeployqt --no-translations --no-system-d3d-compiler --no-compiler-runtime $<TARGET_FILE:DataCapture>
         WORKING_DIRECTORY ${PROJECT_BINARY_DIR}
     )
 elseif(APPLE)
     add_custom_command(
         TARGET DataCapture
         POST_BUILD
-        COMMAND ${Qt5_DIR}/../../../bin/macdeployqt DataCapture.app
+        COMMAND ${Qt6_DIR}/../../../bin/macdeployqt DataCapture.app
         WORKING_DIRECTORY ${PROJECT_BINARY_DIR}
     )
 endif()

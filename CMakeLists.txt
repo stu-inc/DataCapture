@@ -15,6 +15,6 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 set(CMAKE_OSX_DEPLOYMENT_TARGET "10.14")
 
-find_package(Qt5 COMPONENTS Widgets Network SerialPort)
+find_package(Qt6 COMPONENTS Widgets Network SerialPort)
 
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/src)
