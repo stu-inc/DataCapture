@@ -1,6 +1,7 @@
 #pragma once
 
 #include <QHash>
+#include <QObject>
 #include <QReadWriteLock>
 #include <QSharedPointer>
 
